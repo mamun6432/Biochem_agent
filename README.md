@@ -60,21 +60,11 @@ python -m agentic_ml.preprocess dataset/22716739/*.h5 --out dataset/processed.h5
 ```
 
 ## Using real data
-1. Run your upstream pipeline (QC, integration, annotation, pseudobulk DE).
+1. Run upstream pipeline (QC, integration, annotation, pseudobulk DE).
 2. Build a `SampleDataset` with `from_anndata(adata, sample_col, label_col, celltype_col, positive_label)`.
 3. Put DE tables / enrichment results in a text file and pass `--context` so the agent can reason biologically.
 4. Read `runs/ledger.jsonl` for the full search path (reviewers will ask).
 
-## Guards enforced in code
-- unit of prediction = sample; `StratifiedGroupKFold` on samples (or `group_col`, e.g. patient)
-- scaling / feature selection fitted inside each fold only; tuning uses nested CV
-- hold-out sealed at construction, evaluated once by `finalize()`
-- `MIN_SAMPLES_PER_CLASS` check; `no_signal` status when the AUC CI includes 0.5
-- feature stability (Jaccard of top-k across folds) reported alongside AUC
-- hard experiment budget
 
-## Next steps
-- add `geneset_scores` block (e.g. decoupler / AUCell per cell, averaged per sample)
-- external cohort: build a second `SampleDataset` from bulk data (same gene panel) and pass it to `finalize`
-- optional sandboxed `custom_feature_transform` tool once the structured version is stable
-- regression test on a public dataset with a known cell-type-specific biomarker
+
+
