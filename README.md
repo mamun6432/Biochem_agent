@@ -50,8 +50,7 @@ server's environment unless you start the app with `AGENTIC_ML_ALLOW_ENV_KEYS=1`
 QC metrics -> filter (min 100 genes/cell, 3 cells/gene) -> Scrublet doublets -> normalize + log1p
 -> 2,000 HVGs -> PCA/neighbors/UMAP -> Leiden (0.02, 0.5, 2.0) -> marker-based cell-type labels.
 Differences: predicted doublets are removed, an optional max-%-mito filter, and annotation is
-automatic (each cluster gets the marker set with the highest per-gene-scaled mean expression,
-i.e. what you'd read off the tutorial's dotplot). 
+automatic. 
 ```
 streamlit run app.py        # "Preprocess" mode: run, review/edit labels, save .h5ad
 python -m agentic_ml.preprocess dataset/22716739/*.h5 --out dataset/processed.h5ad
